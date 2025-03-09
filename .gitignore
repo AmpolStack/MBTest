@@ -1,0 +1,8 @@
+.idea
+bin
+obj
+appsettings.json
+appsettings.*.json
+config
+TestMqOne.sln.DotSettings.user
+.env

@@ -1,0 +1,68 @@
+﻿services:
+  read-api:
+    build:
+      context: .
+      dockerfile: ReaderApi/Dockerfile
+    container_name: read-api-server
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - mb-net
+      - read-db-net
+  write-api:
+    build:
+      context: .
+      dockerfile: WriterApi/Dockerfile
+    container_name: write-api-server
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8082:8080"
+      - "8083:8081"
+    networks:
+      - mb-net
+      - write-db-net
+  read-database:
+    image: mysql
+    container_name: mysql-read
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${READ_MYSQL_ROOT_PASSWORD}
+    networks:
+      - read-db-net
+    volumes:
+      - read-db-volume:/var/lib/data
+  write-database:
+    image: mysql
+    container_name: mysql-write
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${WRITE_MYSQL_ROOT_PASSWORD}
+    networks:
+      - write-db-net
+    volumes:
+      - write-db-volume:/var/lib/data
+  mb-server:
+    image: rabbitmq:4.0-management
+    container_name: rabbit-mq-server
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    networks:
+      - mb-net
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+networks:
+  mb-net:
+  write-db-net:
+  read-db-net:
+volumes:
+  read-db-volume:
+  write-db-volume:
+  
