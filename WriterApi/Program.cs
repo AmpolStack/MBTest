@@ -1,6 +1,8 @@
 using Shared.Custom;
 using Shared.Models;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
+using WriterApi.Hosted;
 
 namespace WriterApi;
 
@@ -18,7 +20,19 @@ public class Program
         });
 
         builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+        builder.Services.AddSingleton<IConnection>((opt) =>
+        {
+            var factory = new ConnectionFactory()
+            {
+                HostName = "rabbit-mq-server",
+                Port = 5672,
+            };
+            var x = factory.CreateConnectionAsync().GetAwaiter().GetResult();
+            return x;
+        });
+
         
+        // builder.Services.AddHostedService<MessageReciever>();
         builder.Services.AddControllers();
         var app = builder.Build();
         

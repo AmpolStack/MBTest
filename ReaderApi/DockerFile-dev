@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0
+
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+COPY ["ReaderApi/ReaderApi.csproj", "ReaderApi/"]
+WORKDIR /app/ReaderApi
+RUN dotnet restore "ReaderApi.csproj"
+
+COPY . .
+
+WORKDIR /app/ReaderApi
+
+ENTRYPOINT ["sh", "-c", "dotnet watch run --urls http://0.0.0.0:8080"]

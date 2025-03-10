@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0
+
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+COPY ["WriterApi/WriterApi.csproj", "WriterApi/"]
+WORKDIR /app/WriterApi
+RUN dotnet restore "WriterApi.csproj"
+
+COPY . .
+
+WORKDIR /app/WriterApi
+ENTRYPOINT ["sh", "-c", "dotnet watch run --urls http://0.0.0.0:8080"]
