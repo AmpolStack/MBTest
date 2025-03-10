@@ -1,4 +1,4 @@
-﻿namespace DbAccess.DTOs;
+﻿namespace Shared.DTOs;
 
 public class ProductDto
 {

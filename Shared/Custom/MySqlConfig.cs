@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DbAccess.Custom;
+namespace Shared.Custom;
 
 public class MySqlConfig
 {

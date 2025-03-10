@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DbAccess.Models;
+namespace Shared.Models;
 
 public partial class ProductOrder
 {

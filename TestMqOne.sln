@@ -16,6 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dockerStructure", "dockerSt
 		.env = .env
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlStructure", "SqlStructure", "{C75265C0-D5A2-4735-8D9A-5D4391AECE9C}"
+	ProjectSection(SolutionItems) = preProject
+		DbSchema.sql = DbSchema.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{63B9BB8F-C80F-4A85-BB27-DCA75E0BD2CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +37,9 @@ Global
 		{27C4480B-B403-4526-B598-7FD4106FED94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27C4480B-B403-4526-B598-7FD4106FED94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27C4480B-B403-4526-B598-7FD4106FED94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63B9BB8F-C80F-4A85-BB27-DCA75E0BD2CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B9BB8F-C80F-4A85-BB27-DCA75E0BD2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B9BB8F-C80F-4A85-BB27-DCA75E0BD2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B9BB8F-C80F-4A85-BB27-DCA75E0BD2CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
