@@ -1,6 +1,7 @@
 using Shared.Custom;
 using Shared.Models;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
 
 namespace ReaderApi;
 
@@ -18,6 +19,22 @@ public class Program
             opt.UseMySql(config.GetConnectionString(), ServerVersion.Parse(config.Version));
         });
 
+        builder.Services.AddSingleton<IConnection>((opt) =>
+        {
+            var config = new RabbitMqConfig();
+            builder.Configuration.GetSection("Bus:RabbitMq").Bind(config);
+            var factory = new ConnectionFactory()
+            {
+                HostName = config.Hostname!,
+                Port = int.Parse(config.Port!),
+                UserName = config.Username!,
+                Password = config.Password!,
+                VirtualHost = config.VirtualHost!
+            };
+            var x = factory.CreateConnectionAsync().GetAwaiter().GetResult();
+            return x;
+        });
+        
         builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
         
         builder.Services.AddControllers();

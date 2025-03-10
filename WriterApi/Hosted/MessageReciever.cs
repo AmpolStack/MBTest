@@ -8,7 +8,7 @@ public class MessageReciever : BackgroundService
 {
     private readonly IConnection _connection;
     private IChannel _channel;
-    private ILogger<MessageReciever> _logger;
+    private readonly ILogger<MessageReciever> _logger;
 
     public MessageReciever(IConnection connection, ILoggerFactory loggerFactory)
     {

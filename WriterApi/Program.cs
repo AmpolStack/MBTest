@@ -22,17 +22,22 @@ public class Program
         builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
         builder.Services.AddSingleton<IConnection>((opt) =>
         {
+            var config = new RabbitMqConfig();
+            builder.Configuration.GetSection("Bus:RabbitMq").Bind(config);
             var factory = new ConnectionFactory()
             {
-                HostName = "rabbit-mq-server",
-                Port = 5672,
+                HostName = config.Hostname!,
+                Port = int.Parse(config.Port!),
+                UserName = config.Username!,
+                Password = config.Password!,
+                VirtualHost = config.VirtualHost!
             };
             var x = factory.CreateConnectionAsync().GetAwaiter().GetResult();
             return x;
         });
 
         
-        // builder.Services.AddHostedService<MessageReciever>();
+        builder.Services.AddHostedService<MessageReciever>();
         builder.Services.AddControllers();
         var app = builder.Build();
         
